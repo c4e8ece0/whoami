@@ -62,9 +62,9 @@ function parse_headers() {
 	$res['request']['remote-addr']    = @$_SERVER['REMOTE_ADDR'];
 	$res['request']['remote-port']    = @$_SERVER['REMOTE_PORT'];
 
-	if(!empty($res['client']['cookie'])) {
-		$res['client']['cookie'] = 'present, hidden';
-	}
+	$res['client']['cookie'] = 'hidden';
+	$res['client']['x-forwarded-for'] = 'hidden';
+	$res['client']['x-real-for'] = 'hidden';
 
 	return $res;
 }
