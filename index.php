@@ -39,32 +39,32 @@ switch(DEBUG) {
 
 // Сборка итогового списка значимых заголовков
 function parse_headers() {
-	$res = array('client'=>array(), 'request'=>array());
+	$res = array('http'=>array(), 'env'=>array());
 	foreach($_SERVER as $k=>$v) {
 		if(substr($k, 0, 5) == 'HTTP_') {
 			$k = strtolower(substr($k, 5));
 			$k = str_replace('_', '-', $k);
 			$i = 1;
-			if(isset($res['client'][$k])) {
-				while(isset($res['client'][$k.'_'.$i])) {
+			if(isset($res['http'][$k])) {
+				while(isset($res['http'][$k.'_'.$i])) {
 					$i++;
 				}
 				$k.= '_'.$i;
 			}
-			$res['client'][$k] = $v;
+			$res['http'][$k] = $v;
 		}
 	}
-	$res['request']['server-name']    = @$_SERVER['SERVER_NAME'];
-	$res['request']['server-port']    = @$_SERVER['SERVER_PORT'];
-	$res['request']['server-proto']   = @$_SERVER['SERVER_PROTOCOL'];
-	$res['request']['request-method'] = @$_SERVER['REQUEST_METHOD'];
-	$res['request']['request-time']   = @$_SERVER['REQUEST_TIME'];
-	$res['request']['remote-addr']    = @$_SERVER['REMOTE_ADDR'];
-	$res['request']['remote-port']    = @$_SERVER['REMOTE_PORT'];
+	$res['env']['server-name']    = @$_SERVER['SERVER_NAME'];
+	$res['env']['server-port']    = @$_SERVER['SERVER_PORT'];
+	$res['env']['server-proto']   = @$_SERVER['SERVER_PROTOCOL'];
+	$res['env']['request-method'] = @$_SERVER['REQUEST_METHOD'];
+	$res['env']['request-time']   = @$_SERVER['REQUEST_TIME'];
+	$res['env']['remote-addr']    = @$_SERVER['REMOTE_ADDR'];
+	$res['env']['remote-port']    = @$_SERVER['REMOTE_PORT'];
 
-	$res['client']['cookie'] = 'hidden';
-	$res['client']['x-forwarded-for'] = 'hidden';
-	$res['client']['x-real-for'] = 'hidden';
+	$res['http']['cookie'] = 'hidden';
+	$res['http']['x-forwarded-for'] = 'hidden';
+	$res['http']['x-real-for'] = 'hidden';
 
 	return $res;
 }
